@@ -43,12 +43,70 @@ function handleElementHover(event) {
         document.body.appendChild(tooltip);
     }
     
-    // 显示class值
-    if (classList.length > 0) {
-        tooltip.textContent = `类名: ${Array.from(classList).join(' ')}`;
-    } else {
-        tooltip.textContent = '该元素没有class';
+    // 收集元素信息
+    const elementInfo = [];
+    
+    // 标签名
+    elementInfo.push(`标签: ${element.tagName.toLowerCase()}`);
+    
+    // ID
+    if (element.id) {
+        elementInfo.push(`ID: ${element.id}`);
     }
+    
+    // 类名
+    if (classList.length > 0) {
+        elementInfo.push(`类名: ${Array.from(classList).join(' ')}`);
+    }
+    
+    // name属性
+    if (element.getAttribute('name')) {
+        elementInfo.push(`name: ${element.getAttribute('name')}`);
+    }
+    
+    // type属性（对于input等元素）
+    if (element.getAttribute('type')) {
+        elementInfo.push(`type: ${element.getAttribute('type')}`);
+    }
+    
+    // value属性（对于input、button等元素）
+    if (element.getAttribute('value')) {
+        elementInfo.push(`value: ${element.getAttribute('value')}`);
+    }
+    
+    // 获取元素的XPath
+    function getXPath(element) {
+        if (!element) return '';
+        if (element.tagName.toLowerCase() === 'html') return '/html';
+        
+        let path = '';
+        let current = element;
+        while (current && current.nodeType === Node.ELEMENT_NODE) {
+            let index = 1;
+            let sibling = current.previousSibling;
+            
+            while (sibling) {
+                if (sibling.nodeType === Node.ELEMENT_NODE && sibling.tagName === current.tagName) {
+                    index++;
+                }
+                sibling = sibling.previousSibling;
+            }
+            
+            const tagName = current.tagName.toLowerCase();
+            const pathIndex = (index > 1) ? `[${index}]` : '';
+            path = `/${tagName}${pathIndex}${path}`;
+            
+            current = current.parentNode;
+        }
+        return path;
+    }
+    
+    // 添加XPath信息
+    const xpath = getXPath(element);
+    elementInfo.push(`XPath: ${xpath}`);
+    
+    // 设置提示框内容
+    tooltip.innerHTML = elementInfo.join('<br>');
     
     // 设置提示框位置
     tooltip.style.left = `${event.pageX + 10}px`;
