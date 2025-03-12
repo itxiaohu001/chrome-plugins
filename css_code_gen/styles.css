@@ -1,0 +1,38 @@
+.css-finder-highlight {
+    outline: 2px solid #ff0000 !important;
+    background-color: rgba(255, 0, 0, 0.1) !important;
+}
+
+#css-finder-tooltip {
+    position: fixed;
+    background-color: #333;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    z-index: 999999;
+    pointer-events: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#css-finder-status {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 999999;
+    transition: all 0.3s ease;
+}
+
+#css-finder-status.enabled {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#css-finder-status.disabled {
+    background-color: #f44336;
+    color: white;
+}
