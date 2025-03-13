@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Tab Host Manager",
+  "version": "1.0",
+  "description": "按照host对打开的页面进行分类管理",
+  "permissions": [
+    "tabs",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/icon16.png"
+    }
+  }
+}
